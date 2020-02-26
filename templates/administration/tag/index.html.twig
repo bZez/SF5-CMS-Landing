@@ -1,0 +1,39 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Tag index{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1>Gestion des Tags     <a class="btn bg-custom text-white float-right" href="{{ path('tag_new') }}"><i class="fas fa-plus"></i> Nouveau tag</a></h1>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libellé</th>
+                <th>Position</th>
+                <th>Page</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+            <tr>
+                <td class="col-1">{{ tag.id }}</td>
+                <td class="col-1">{{ tag.libelle }}</td>
+                <td class="col-1">{{ tag.position }}</td>
+                <td >{% if tag.page %}<a href="{{ path('page_edit',{id:tag.page.id}) }}">{{ tag.page.title }}</a>{% else %}Aucune{% endif %}</td>
+                <td class="col-1 text-right">
+                    <a class="btn bg-custom text-white" href="{{ path('tag_edit', {'id': tag.id}) }}"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn bg-custom text-white" href="{{ path('admin') }}"><i class="fas fa-backward"></i> Retour Admin</a>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Edit Form{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1>Edit Form</h1>
+
+    {% for tab in page.form.content.tabs %}
+        <div class="tab d-block">
+            {% for input in tab.inputs %}
+                <h6 class="font-weight-bold text-black-50">{{ input['label'] }}</h6>
+                {% if input.type is same as('select') %}
+                    <select name="lead[{{ input['name'] }}]" id="{{ input['id'] }}" class="form-control mb-3">
+                        {% for option in input['options'] %}
+                            <option value="{{ option.val}}">{{ option.text }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <p>
+                        <input placeholder="{{ input['placeholder'] }}" oninput="this.className = 'form-control'"
+                               name="lead[{{ input['name'] }}]" class="form-control" minlength="2">
+                    </p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

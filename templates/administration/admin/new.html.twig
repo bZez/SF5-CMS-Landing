@@ -1,0 +1,13 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}New Admin{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1>Create new Admin</h1>
+
+    {{ include('administration/admin/_form.html.twig') }}
+
+    <a class="btn bg-custom text-white" href="{{ path('admin_index') }}">back to list</a>
+</div>
+{% endblock %}

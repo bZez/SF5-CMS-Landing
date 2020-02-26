@@ -1,0 +1,38 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1>Admin</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ admin.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ admin.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ admin.roles ? admin.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ admin.password }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+<div class="row">
+    <a class="btn btn-warning" href="{{ path('admin_index') }}"><i class="fas fa-backward"></i> Retour</a>
+
+    <a  class="btn bg-custom text-white" href="{{ path('admin_edit', {'id': admin.id}) }}"><i class="fas fa-edit"></i> Modifier</a>
+</div>
+
+    {{ include('administration/admin/_delete_form.html.twig') }}
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Exportation des leads{% endblock %}
+
+{% block body %}
+    <div class="col-12 p-5 rounded bg-light shadow">
+        <h1>Exportation des leads</h1>
+        <hr>
+        <form action="" method="post">
+            <label for="page">Page</label>
+            <select name="page" id="page" class="form-control" required>
+                {% for page in pages %}
+                    <option value="{{ page.id }}">{{ page.title }} - {{ page.newLeads|length }} Leads non exportés</option>
+                {% endfor %}
+            </select>
+            <hr>
+            <div class="form-row">
+                <div class="col">
+                    <label for="dateDebut">Début:</label>
+                    <input type="date" id="dateDebut" class="form-control" name="dateDebut">
+                </div>
+                <div class="col">
+                    <label for="dateFin">Fin:</label>
+                    <input type="date" id="dateFin" class="form-control" name="dateFin">
+                </div>
+            </div>
+            <hr>
+            <label for="page">Département</label>
+            <select name="dep" id="dep" class="form-control">
+                <option value="">Tous les départements...</option>
+                {% for dep in deps %}
+                    <option value="{{ dep.code }}">{{ dep.code }}</option>
+                {% endfor %}
+            </select>
+            <hr>
+            <label for="page">Nombre de leads à exporter <small class="text-black-50">(laisser vide pour exporter tous)</small></label>
+            <input type="number" name="count" id="count" class="form-control">
+            <hr>
+            <div class="form-row">
+                <div class="col-12">
+                    <a class="btn bg-custom text-white" href="{{ path('admin') }}"><i class="fas fa-backward"></i> Retour Admin</a>
+                    <button type="submit" class="btn bg-custom text-white" name="new" value="true">Exporter les NOUVEAUX leads</button>
+                    <button type="submit" class="btn bg-custom text-white">Exporter TOUS les leads</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

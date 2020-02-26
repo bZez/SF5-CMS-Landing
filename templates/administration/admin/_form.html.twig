@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<a class="btn btn-warning text-white" href="{{ path('admin_index') }}"><i class="fas fa-backward"></i> Retour</a>
+    <button class="btn bg-custom text-white">{{ button_label|default('Enregistrer') }}</button>
+
+{{ form_end(form) }}

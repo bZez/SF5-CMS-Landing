@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    {#<base href="//simulation-energie.fr">#}
+    {% if page.isIndexed is defined and page.isFollowed is defined %}
+        <meta name="robots"
+              content="{{ page.isIndexed ? 'index':'noindex' }}, {{ page.isFollowed ? 'follow':'nofllow' }}">
+    {% endif %}
+    {% if page.description is defined and page.description is not null %}
+        <meta name="description" content="{{ page.description }}">
+    {% endif %}
+    {% if page.keywords is defined and page.keywords is not null %}
+        <meta name="keywords" content="{{ page.keywords }}">
+    {% endif %}
+    {% if page.favicon is defined and page.favicon is not null %}
+        <link rel="icon" type="image/png" href="img/icon/{{ page.favicon }}"/>
+    {% endif %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    {% block stylesheets %}{% endblock %}
+    {% if page.tags %}
+        {% for tag in page.tags %}
+            {% if 'head' in tag.position %}
+                {{ tag.content|raw }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if page.customColor is defined and page.customColor is not null %}
+        <style>
+            .step {
+                background: {{ page.customColor }};
+                opacity: .5;
+            }
+
+            .bg-custom, .step.finish {
+                background: {{page.customColor}};
+                opacity: 1;
+            }
+
+            .text-custom, b {
+                color: {{page.customColor}};
+            }
+
+            .header-3 {
+                background: url("{{ asset('img/overlay.svg') }}"), linear-gradient(180deg, {{page.customColor}} 80%, white 80%);
+            }
+
+
+        </style>
+    {% endif %}
+    <style>
+
+        label,
+        input {
+            display: inline-block;
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        p {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        input[type="radio"] {
+            opacity: 0.01;
+            z-index: 100;
+        }
+
+
+        label {
+            z-index: 90;
+        }
+
+        label:hover {
+            background: #DDD;
+        }
+
+        .tab.coord {
+            z-index: 999;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+{% if page.tags %}
+    {% for tag in page.tags %}
+        {% if 'bodytop' in tag.position %}
+            {{ tag.content|raw }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<div id="fader">
+    <div class="row h-100 align-items-center">
+        <div class="col-12 text-center p-5">
+            <img src="{{ asset('img/simulation-energie-logo-couleur-orange.png') }}" alt="Logo - Ma pompe à chaleur"
+                 width="100%" style="max-width: 400px;height: auto;">
+        </div>
+    </div>
+</div>
+<div id="site" class=" overflow-hidden">
+    <header class="container-fluid p-0 header-3">
+
+        <nav class="navbar navbar-expand-lg py-2 text-dark">
+
+            <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+                <img src="{% if page.logo is defined and page.logo is not null %}img/{{ page.logo }}{% else %}img/simulation-energier-logo.png{% endif %}"
+                     alt="Logo - Ma pompe à chaleur" height="60px">
+            </a>
+
+            <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="#" class="nav-link font-weight-bold "><i
+                                    class="fas fa-flip-horizontal fa-phone small"></i> Appelez-nous <span
+                                    class="sr-only">(current)</span></a></li>
+                    {#                    <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">About</a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Gallery</a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Portfolio</a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Contact</a></li>#}
+                </ul>
+            </div>
+
+        </nav>
+
+
+        {# FORM HEAD#}
+        <div class="container h-100 mb-5 mb-md-0">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="font-weight-bold text-warning"> Merci la loi transition énergétique !</p>
+                    <h1 class="h4 text-white">VOTRE NOUVELLE CHAUDIÈRE GAZ GRATUITE *</h1>
+                </div>
+            </div>
+            <div class="row mb-md-5 bg-white shadow rounded p-3 p-md-5 m-1" id="eligibilite">
+                <div class="col-12 text-center">
+                    <h1 class="h4 mb-0 pb-0"><i class="fas fa-quote-left small text-custom"></i>
+                        {% if page.simulator %}
+                            {{ page.simulator.title|raw }}
+                        {% else %}
+                            Votre énergie de chauffage ?
+                        {% endif %}
+                        <i class="fas fa-quote-right small text-custom"></i></h1>
+                </div>
+                <div class="col-12 text-center">
+                    <form id="regForm" class="text-left" method="post" name="lead">
+                        {% if page.simulator %}
+                        {{ page.simulator.content|raw }}
+                        {% else %}
+                        <div class="tab">
+                            <div class="row text-center">
+                                <p class="col-12 col-md-4">
+                                    <input required type="radio" id="fioul" value="Fioul"
+                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                    <label for="fioul" class="btn btn-outline-secondary w-100"><i
+                                                class="fas fa-gas-pump text-warning"></i> Fioul</label>
+                                </p>
+                                <p class="col-12 col-md-4">
+                                    <input type="radio" id="gaz" value="Gaz" name="lead[custom][chauffage]"
+                                           onclick="nextPrev(1)"/>
+                                    <label for="gaz" class="btn btn-outline-secondary w-100"><i
+                                                class="fas fa-burn text-warning"></i> Gaz</label>
+                                </p>
+                                <p class="col-12 col-md-4">
+                                    <input type="radio" id="electrique" value="Electrique"
+                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                    <label for="electrique" class="btn btn-outline-secondary w-100"><i
+                                                class="fas fa-charging-station text-warning"></i> Electrique</label>
+                                </p>
+                                <p class="col-12 col-md-4 collapse collapserow">
+                                    <input required type="radio" id="solaire" value="Solaire"
+                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                    <label for="solaire" class="btn btn-outline-secondary w-100"><i
+                                                class="fas fa-solar-panel text-warning"></i> Solaire</label>
+                                </p>
+                                <p class="col-12 col-md-4 collapse collapserow">
+                                    <input type="radio" id="geothermie" value="Géothemrie"
+                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                    <label for="geothermie" class="btn btn-outline-secondary w-100"><i
+                                                class="fas fa-globe-europe text-warning"></i> Géothermie</label>
+                                </p>
+                                <p class="col-12 col-md-4 collapse collapserow">
+                                    <input type="radio" id="bois" value="Bois" name="lead[custom][chauffage]"
+                                           onclick="nextPrev(1)"/>
+                                    <label for="bois" class="btn btn-outline-secondary w-100"><i
+                                                class="fas fa-tree text-warning"></i> Bois</label>
+                                </p>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button class="btn text-custom border-0 shadow-none" data-toggle="collapse"
+                                            data-target=".collapserow" aria-expanded="false"
+                                            aria-controls="collapseExample" onclick="return false;">Autre...
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab coord">
+                            <div class="fixed-top p-3">
+                                <img src="{{ asset('img/simulation-energie-logo-couleur-orange.png') }}"
+                                     alt="Logo Simulation-Energie.fr" width="200px">
+                            </div>
+                            <div class="container h-100">
+                                <div class="row align-items-center h-100">
+                                    <div class="col-12 text-center">
+                                        <p class="h5 text-custom">INFORMATIONS VOUS CONCERNANT</p>
+                                        <div class="alert-box row align-items-center p-3 m-2 ml-md-auto mr-md-auto mt-3 mb-3">
+                                            <div class="col-2">
+                                                <i class="fas fa-lock fa-2x"></i>
+                                            </div>
+                                            <div class="col text-left small">
+                                                Vos informations serviront uniquement à la réalisation de votre projet
+                                                d’économie d’énergie.
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-left">
+                                            <h6 class="font-weight-bold text-warning h5">Mes coordonnées :</h6>
+                                            <div class="form-row">
+                                                <div class="col-12 col-md-6">
+
+                                                    <input placeholder="Votre nom..."
+                                                           oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0'"
+                                                           name="lead[nom]"
+                                                           class="form-control border-top-0 border-left-0 border-right-0"
+                                                           minlength="2">
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <input placeholder="Votre prénom..."
+                                                           oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0 mt-3 mt-md-0'"
+                                                           name="lead[prenom]"
+                                                           class="form-control border-top-0 border-left-0 border-right-0 mt-3 mt-md-0"
+                                                           minlength="2">
+
+                                                </div>
+                                            </div>
+                                            <input placeholder="E-mail..."
+                                                   oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0 mt-3'"
+                                                   name="lead[email]"
+                                                   class="form-control border-top-0 border-left-0 border-right-0 mt-3"
+                                                   type="email" minlength="8">
+                                            <input placeholder="Téléhone..."
+                                                   oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0 mt-3'"
+                                                   name="lead[telephone]"
+                                                   class="form-control border-top-0 border-left-0 border-right-0 mt-3"
+                                                   type="tel" minlength="10">
+                                        </div>
+
+                                        <div class="col-12 text-left mt-5">
+                                            <h6 class="font-weight-bold text-warning h5">Logement concerné par
+                                                l'installation :</h6>
+                                            <div class="form-row mt-3">
+                                                <select name="lead[custom][logement]" id="lead_logement" class="form-control">
+                                                    <option value="Maison">Une Maison</option>
+                                                    <option value="Appartement">Un appartement</option>
+                                                </select>
+                                            </div>
+                                            <input placeholder="Votre adresse..."
+                                                   oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0 mt-3'"
+                                                   name="lead[adresse]"
+                                                   class="form-control border-top-0 border-left-0 border-right-0 mt-3"
+                                                   minlength="8">
+                                            <div class="form-row">
+                                                <div class="col-12 col-md-6">
+                                                    <input placeholder="Votre code postal..."
+                                                           oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0 mt-3'"
+                                                           name="lead[codepostal]"
+                                                           class="form-control border-top-0 border-left-0 border-right-0 mt-3"
+                                                           minlength="5">
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <input placeholder="Votre ville..."
+                                                           oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0 mt-3'"
+                                                           name="lead[ville]"
+                                                           class="form-control border-top-0 border-left-0 border-right-0 mt-3"
+                                                           minlength="2">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 text-center mt-5">
+                                            <button type="button" id="nextBtn" onclick="nextPrev(1)"
+                                                    class="btn btn-lg text-white bg-custom">J'en profite
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <input type="hidden" hidden value="{{ page ? page.id : '-1' }}" name="lead[page]">
+                            <div class="form-row">
+                                <div class="col-12 text-center">
+                                    <button type="button" id="nextBtn" onclick="return false;"
+                                            class="btn btn-lg text-white bg-custom">J'en profite
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Circles which indicates the steps of the form: -->
+                            <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <small class="text-black-50">Etape <span id="stepcount">1</span> / <span
+                                                id="stepmax">2</span></small>
+                                </div>
+                            </div>
+                            <div class="row step_container shadow">
+                                <span class="col step p-1 finish"></span>
+                                <span class="col step p-1"></span>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block body %}{% endblock %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <img src="{{ asset('img/credits-impots.jpg') }}" alt="" width="100%">
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-dark text-light pb-3 pl-3 pr-3 text-center fixed-bottom shadow-lg" id="cookiebar">
+        <div class="row bg-light p-3 p-md-5 text-dark align-items-center" id="cookie">
+            <div class="col-12 col-md-10 text-left">
+                <p class="small">En visitant notre site Web et en utilisant nos services, vous comprenez et acceptez la
+                    façon dont
+                    nous traitons les données personnelles conformément à notre politique de confidentialité. Nous
+                    respectons votre vie privée et le droit de contrôler vos données personnelles. Nos principes
+                    directeurs sont simples. Nous allons être ouverts avec quelles données nous collectons et pourquoi.
+                    Veuillez prendre un moment pour les lire.</p>
+            </div>
+            <div class="col-12 col-md-2 text-right">
+                <button class="btn bg-custom text-white" onclick="acceptCookie()">J'accepte</button>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12 text-center">
+                <a href="{{ path('legal') }}" class="text-white">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="{{ asset('js/form.js') }}"></script>
+<script src="{{ asset('js/countdown.js') }}"></script>
+{% if page.tags %}
+    {% for tag in page.tags %}
+        {% if 'bodyend' in tag.position %}
+            {{ tag.content|raw }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<script>
+
+    $('.header-ctn').css('margin-top', $('#bar').height() + 'px')
+
+    function acceptCookie() {
+        window.localStorage.setItem('cookieAccepted', 'true');
+        $('#cookiebar').removeClass('fixed-bottom');
+        $('#cookie').remove();
+    }
+
+    if (window.localStorage.getItem('cookieAccepted')) {
+        acceptCookie();
+    }
+</script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

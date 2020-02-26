@@ -1,0 +1,52 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Lead index{% endblock %}
+
+{% block body %}
+   <div class="col-12 p-5 rounded bg-light shadow">
+       <h1>Listing des leads
+           <span class="float-right">
+                  <a href="{{ path('export_lead') }}" class="btn bg-custom text-white"><i class="fas fa-download"></i> Exporter les nouveaux leads</a>
+           </span>
+       </h1>
+
+       <table class="table">
+           <thead>
+           <tr>
+               <th>Id</th>
+               <th>Logement</th>
+               <th>Chauffage</th>
+               <th>Nom</th>
+               <th>Prenom</th>
+               <th>Adresse</th>
+               <th>CodePostal</th>
+               <th>Ville</th>
+               <th>Email</th>
+               <th>Telephone</th>
+           </tr>
+           </thead>
+           <tbody>
+           {% for lead in leads %}
+               <tr>
+                   <td>{{ lead.id }}</td>
+                   <td>{{ lead.logement }}</td>
+                   <td>{{ lead.chauffage }}</td>
+                   <td>{{ lead.nom }}</td>
+                   <td>{{ lead.prenom }}</td>
+                   <td>{{ lead.adresse }}</td>
+                   <td>{{ lead.codePostal }}</td>
+                   <td>{{ lead.ville }}</td>
+                   <td>{{ lead.email }}</td>
+                   <td>{{ lead.telephone }}</td>
+
+               </tr>
+           {% else %}
+               <tr>
+                   <td colspan="11">no records found</td>
+               </tr>
+           {% endfor %}
+           </tbody>
+       </table>
+
+   </div>
+{% endblock %}

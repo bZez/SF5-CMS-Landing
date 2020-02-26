@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+     <base href="//simulation-energie.fr">
+    {% if page.isIndexed is defined and page.isFollowed is defined %}
+        <meta name="robots"
+              content="{{ page.isIndexed ? 'index':'noindex' }}, {{ page.isFollowed ? 'follow':'nofllow' }}">
+    {% endif %}
+    {% if page.description is defined and page.description is not null %}
+        <meta name="description" content="{{ page.description }}">
+    {% endif %}
+    {% if page.keywords is defined and page.keywords is not null %}
+        <meta name="keywords" content="{{ page.keywords }}">
+    {% endif %}
+    {% if page.favicon is defined and page.favicon is not null %}
+        <link rel="icon" type="image/png" href="img/icon/{{ page.favicon }}"/>
+    {% endif %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    {% block stylesheets %}{% endblock %}
+    {% if page.tags %}
+        {% for tag in page.tags %}
+            {% if 'head' in tag.position %}
+                {{ tag.content|raw }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if page.customColor is defined and page.customColor is not null %}
+        <style>
+            .step {
+                background: {{ page.customColor }};
+                opacity: .5;
+            }
+
+            .bg-custom, .step.finish {
+                background: {{page.customColor}};
+                opacity: 1;
+            }
+
+            .text-custom, b {
+                color: {{page.customColor}};
+            }
+
+        </style>
+    {% endif %}
+    <style>
+
+        label,
+        input {
+            display: block;
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        input[type="radio"] {
+            opacity: 0.01;
+            z-index: 100;
+        }
+
+
+        label {
+            z-index: 90;
+        }
+
+        label:hover {
+            background: #DDD;
+        }
+        .step.finish,.step.active {
+            background: white!important;
+        }
+    </style>
+</head>
+<body>
+{% if page.tags %}
+    {% for tag in page.tags %}
+        {% if 'bodytop' in tag.position %}
+            {{ tag.content|raw }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<div id="fader">
+    <div class="row h-100 align-items-center">
+        <div class="col-12 text-center p-5">
+            <img src="{{ asset('img/simulation-energie-logo-couleur-orange.png') }}" alt="Logo - Ma pompe à chaleur"
+                 width="100%" style="max-width: 400px;height: auto;">
+        </div>
+    </div>
+</div>
+<div id="site" class=" overflow-hidden">
+    <header class="container-fluid p-0 header-2">
+       <div class="fixed-top shadow" id="bar">
+           <nav class="navbar navbar-expand-lg py-2 bg-white text-dark">
+
+               <a href="#" class="navbar-brand text-uppercase font-weight-bold">
+                   <img src="{% if page.logo is defined and page.logo is not null %}img/{{ page.logo }}{% else %}img/logo.jpg{% endif %}"
+                        alt="Logo - Ma pompe à chaleur" height="60px">
+               </a>
+
+               <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                   <ul class="navbar-nav ml-auto">
+                       <li class="nav-item active"><a href="tel:0272240350" class="nav-link font-weight-bold "><i
+                                       class="fas fa-flip-horizontal fa-phone small"></i> Appelez-nous <span
+                                       class="sr-only">(current)</span></a></li>
+                       {#                    <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">About</a></li>
+                                           <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Gallery</a></li>
+                                           <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Portfolio</a></li>
+                                           <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Contact</a></li>#}
+                   </ul>
+               </div>
+
+           </nav>
+
+
+           <div class="row bg-dark text-white py-3">
+               <div class="col-12 ml-3">
+                   Vos économies d'énergie, la priorité du Gouvernement et la nôtre
+               </div>
+           </div>
+       </div>
+
+
+        <div class="row header-ctn">
+            <div class=" col-12 col-md-8 p-5 bg-custom text-white">
+                <div class="p-3 text-justify">
+                    <h1 class="h2">L'Etat finance votre pompe à chaleur !</h1>
+                    <p class="h6"> Avec la Prime Coup de pouce Energie 2020, l’Etat vous offre jusqu’à  10 700€ pour votre chauffage !</p>
+                    <br>
+                    <p class="h6">Le Ministère de la Transition Energétique à lancé la Prime Coup de pouce Energie 2020 : l’Etat décide de financer l’installation de pompes à chaleur nouvelle génération dans les maisons des Français.
+                        <br>
+                        <br>
+                        La fin des grosses factures de chauffage approche : chaque logement individuel va pouvoir économiser jusqu'à 80% sur ses factures annuelles de chauffage !
+                        <br>
+                        <br>
+                        Aujourd’hui, la puissance des pompes à chaleur est vraiment énorme : cette source d'énergie gratuite ( oui l’air c’est gratuit).  Permet au habitants de bénéficier d'une température optimale de chauffe dans la maison toute l'année. Mais surtout de ne plus subir les augmentations colossale du coût des énergies fossiles (Gaz, Fioul ou électricité).
+                        <br>
+                        <br>
+                        Grâce aux moyens très importants débloqués en 2020 par l’Etat (plus de 9,2 milliards d’euros), des maintenants obtenez votre pompe à chaleur et faites des économies considérables !</p>
+                    <br>
+                    <a href="#" class="btn border bg-transparent text-white"><small>{{'Estimez vos économies'|upper}}</small></a>
+                </div>
+            </div>
+            <div class="d-none d-md-inline-block col-md-4 p-5 bg-image"></div>
+        </div>
+{# FORM HEAD#}
+        {#<div class="container h-100 pt-3 mb-5 mb-md-0">
+            <div class="row mb-md-5">
+                <div class="d-none d-md-none d-xl-block col-xl-5">
+                    <div class="row">
+                        <h2 class="h5 text-white">OFFRE EXEPTIONNELLE : Profitez-en maintenant !</h2>
+                        <div class="row align-items-center text-center font-weight-bold text-white pt-3 pb-3"
+                             id="countdown">
+                            <div class="col-2">
+                                <div class="col-12 p-2 rounded border text-white" id="days">&nbsp;</div>
+                            </div>
+                            <div class="col-1">J</div>
+                            <div class="col-2">
+                                <div class="col-12 p-2 rounded border text-white" id="hours">&nbsp;</div>
+                            </div>
+                            <div class="col-1">H</div>
+                            <div class="col-2">
+                                <div class="col-12 p-2 rounded border text-white" id="mins">&nbsp;</div>
+                            </div>
+                            <div class="col-1">M</div>
+                            <div class="col-2">
+                                <div class="col-12 p-2 rounded border text-white" id="secs">&nbsp;</div>
+                            </div>
+                            <div class="col-1">S</div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-3 text-white">
+                        <i class="fas fa-check "></i> &nbsp; Bénéficiez jusqu'à 10 700€ d'aides de l'état !
+                    </div>
+                    <div class="row align-items-center mt-3 text-white">
+                        <i class="fas fa-check "></i> &nbsp; Profitez de la prime énergie jusqu'a 5500 €
+                    </div>
+                    <div class="row align-items-center mt-3 text-white">
+                        <i class="fas fa-check "></i> &nbsp; Profitez de la prime Ma prime Renov' jusqu'a 5200 € !
+                    </div>
+                    <div class="row align-items-center mt-3 text-white">
+                        <i class="fas fa-check "></i> &nbsp; Réduisez jusqu'à 80% vos factures de énergetique !
+                    </div>
+                    <div class="row align-items-center mt-3 text-white">
+                        <i class="fas fa-check "></i> &nbsp; Technicien local agrée RGE
+                    </div>
+
+                    <button class="btn border bg-transparent text-white mt-3">J'EN PROFITE TOUT DE SUITE</button>
+                </div>
+                <div class="col-12 col-xl-6 offset-xl-1">
+                    <div class="col-12 bg-white shadow p-5 text-center">
+                        <h1 class="h4"><i class="fas fa-quote-left small text-custom"></i> Testez votre éligibilité en
+                            fournissant vos infos ci-dessous. <i class="fas fa-quote-right small text-custom"></i></h1>
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+        </div>#}
+    </header>
+    <main>
+            {% block body %}{% endblock %}
+        <div class="container-fluid bg-custom p-5" id="eligibilite">
+            <div class="row">
+                <div class="col-12 col-md-8 text-white">
+                    <p class="text-white h4">Formulaire d'éligibilité</p>
+                    <p class="text-white h5">Test gratuit - Estimez vos économies</p>
+                    <form id="regForm" class="text-left mt-3" method="post" name="lead">
+                        {% if page.simulator %}
+                            {{ page.simulator.content|raw }}
+                        {% else %}
+                            <div class="tab">
+                                <h5 class="font-weight-bold text-white">J'habite :</h5>
+                                <p>
+                                    <input type="radio" id="maison" name="lead[custom][logement]" value="Maison" onclick="nextPrev(1)" required/>
+                                    <label for="maison" class="btn btn-lg btn-danger w-100 mt-3">Une Maison</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="appart" name="lead[custom][logement]" value="Appartement" onclick="nextPrev(1)" />
+                                    <label for="appart" class="btn btn-lg btn-danger w-100 mt-3">Un Appartement</label>
+                                </p>
+                                {#<h6 class="font-weight-bold text-black-50">J'ai un chauffage :</h6>
+                                <p>
+                                    <select name="lead[custom][chauffage]" id="type_chauffage"
+                                            class="form-control mb-3">
+                                        <option value="Gaz">Gaz</option>
+                                        <option value="Electrique">Electrique</option>
+                                        <option value="Fioul">Fioul</option>
+                                        <option value="Bois">Bois</option>
+                                        <option value="Charbon">Charbon</option>
+                                    </select>
+                                </p>#}
+                            </div>
+
+                            <div class="tab">
+                                <h5 class="font-weight-bold text-white">Je suis :</h5>
+                                <p>
+                                    <input required type="radio" id="proprio" value="Proprietaire" name="lead[custom][statut]" onclick="nextPrev(1)" />
+                                    <label for="proprio" class="btn btn-lg btn-danger w-100 mt-3">Propriétaire</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="locataire" value="Locataire" name="lead[custom][statut]" onclick="nextPrev(1)" />
+                                    <label for="locataire" class="btn btn-lg btn-danger w-100 mt-3">Locataire</label>
+                                </p>
+                            </div>
+
+                            <div class="tab">
+                                <h5 class="font-weight-bold text-white">Mon type de chauffage :</h5>
+                                <p>
+                                    <input required type="radio" id="elec" value="Electrique" name="lead[custom][chauffage]" onclick="nextPrev(1)" />
+                                    <label for="elec" class="btn btn-lg btn-danger w-100 mt-3">Electrique</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="gaz" value="Gaz" name="lead[custom][chauffage]" onclick="nextPrev(1)" />
+                                    <label for="gaz" class="btn btn-lg btn-danger w-100 mt-3">Gaz</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="fioul" value="Fioul" name="lead[custom][chauffage]" onclick="nextPrev(1)" />
+                                    <label for="fioul" class="btn btn-lg btn-danger w-100 mt-3">Fioul</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="autre" value="Autre" name="lead[custom][chauffage]" onclick="nextPrev(1)" />
+                                    <label for="autre" class="btn btn-lg btn-danger w-100 mt-3">Autre</label>
+                                </p>
+                            </div>
+
+                            <div class="tab">
+                                <h5 class="font-weight-bold text-white">Montant annuel total de mes factures d'électricité et de chauffage :</h5>
+                                <p>
+                                    <input required type="radio" id="1400" value="Moins de 1400€" name="lead[custom][facture]" onclick="nextPrev(1)" />
+                                    <label for="1400" class="btn btn-lg btn-danger w-100 mt-3">Moins de 1400€</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="1600" value="De 1400€ à 1600€" name="lead[custom][facture]" onclick="nextPrev(1)" />
+                                    <label for="1600" class="btn btn-lg btn-danger w-100 mt-3">De 1400€ à 1600€</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="1800" value="De 1600€ à 1800€" name="lead[custom][facture]" onclick="nextPrev(1)" />
+                                    <label for="1800" class="btn btn-lg btn-danger w-100 mt-3">De 1600€ à 1800€</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="2000" value="De 1800€ à 2000€" name="lead[custom][facture]" onclick="nextPrev(1)" />
+                                    <label for="2000" class="btn btn-lg btn-danger w-100 mt-3">De 1800€ à 2000€</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="2000plus" value="Moins de 1400€" name="lead[custom][facture]" onclick="nextPrev(1)" />
+                                    <label for="2000plus" class="btn btn-lg btn-danger w-100 mt-3">Plus de 2000€</label>
+                                </p>
+                            </div>
+                            <div class="tab">
+                                <h5 class="font-weight-bold text-white">Ma situation professionnelle :</h5>
+                                <p>
+                                    <input required type="radio" id="actif" value="Actif" name="lead[custom][situation]" onclick="nextPrev(1)" />
+                                    <label for="actif" class="btn btn-lg btn-danger w-100 mt-3">Actif</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="chomage" value="Chomage" name="lead[custom][situation]" onclick="nextPrev(1)" />
+                                    <label for="chomage" class="btn btn-lg btn-danger w-100 mt-3">En recherche d'emploi</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="retraite" value="Retraité" name="lead[custom][situation]" onclick="nextPrev(1)" />
+                                    <label for="retraite" class="btn btn-lg btn-danger w-100 mt-3">Retraité</label>
+                                </p>
+                            </div>
+                            <div class="tab coord">
+                                <h5 class="font-weight-bold text-white">Mes coordonnées :</h5>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-6">
+                                        <p><input placeholder="Votre nom..."
+                                                  oninput="this.className = 'form-control'"
+                                                  name="lead[nom]" class="form-control" minlength="2"></p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <p><input placeholder="Votre prénom..."
+                                                  oninput="this.className = 'form-control'"
+                                                  name="lead[prenom]" class="form-control" minlength="2"></p>
+                                    </div>
+                                </div>
+                                <p><input placeholder="Votre adresse..." oninput="this.className = 'form-control'"
+                                          name="lead[adresse]" class="form-control" minlength="8"></p>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-6">
+                                        <p><input placeholder="Votre code postal..."
+                                                  oninput="this.className = 'form-control'" name="lead[codepostal]"
+                                                  class="form-control" minlength="5"></p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <p><input placeholder="Votre ville..."
+                                                  oninput="this.className = 'form-control'"
+                                                  name="lead[ville]" class="form-control" minlength="2"></p>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12 col-md-6">
+                                        <p><input placeholder="E-mail..." oninput="this.className = 'form-control'"
+                                                  name="lead[email]"
+                                                  class="form-control" type="email" minlength="8"></p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <p><input placeholder="Téléhone..." oninput="this.className = 'form-control'"
+                                                  name="lead[telephone]"
+                                                  class="form-control" type="tel" minlength="10"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <input type="hidden" hidden value="{{ page ? page.id : '-1' }}" name="lead[page]">
+                        <div class="form-row mt-3">
+                            <div class="col-6 text-left">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)"
+                                        class="btn border bg-transparent text-white">Précèdent
+                                </button>
+                            </div>
+                            <div class="col-6 text-right">
+                                <button type="button" id="nextBtn" onclick="nextPrev(1)"
+                                        class="btn border bg-transparent text-white" hidden>Suivant
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Circles which indicates the steps of the form: -->
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <small class="text-white">Etape <span id="stepcount">1</span> / <span id="stepmax"></span></small>
+                            </div>
+                        </div>
+                        <div class="row step_container shadow">
+                            <span class="col step p-1 bg-white"></span>
+                            <span class="col step p-1"></span>
+                            <span class="col step p-1"></span>
+                            <span class="col step p-1"></span>
+                            <span class="col step p-1"></span>
+                            <span class="col step p-1"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-none d-md-inline-block col-md-4">
+                    <img src="{{ asset('img/dpe.png') }}" alt="" width="100%">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <img src="{{ asset('img/credits-impots.jpg') }}" alt="" width="100%">
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-dark text-light pb-3 pl-3 pr-3 text-center fixed-bottom shadow-lg" id="cookiebar">
+        <div class="row bg-light p-3 p-md-5 text-dark align-items-center" id="cookie">
+            <div class="col-12 col-md-10 text-left">
+                <p class="small">En visitant notre site Web et en utilisant nos services, vous comprenez et acceptez la façon dont
+                    nous traitons les données personnelles conformément à notre politique de confidentialité. Nous
+                    respectons votre vie privée et le droit de contrôler vos données personnelles. Nos principes
+                    directeurs sont simples. Nous allons être ouverts avec quelles données nous collectons et pourquoi.
+                    Veuillez prendre un moment pour les lire.</p>
+            </div>
+            <div class="col-12 col-md-2 text-right">
+                <button class="btn bg-custom text-white" onclick="acceptCookie()">J'accepte</button>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12 text-center">
+                <a href="{{ path('legal') }}" class="text-white">Mentions légales</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="{{ asset('js/form.js') }}"></script>
+<script src="{{ asset('js/countdown.js') }}"></script>
+{% if page.tags %}
+    {% for tag in page.tags %}
+        {% if 'bodyend' in tag.position %}
+            {{ tag.content|raw }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<script>
+
+    $('.header-ctn').css('margin-top',$('#bar').height()+'px')
+    function acceptCookie() {
+        window.localStorage.setItem('cookieAccepted', 'true');
+        $('#cookiebar').removeClass('fixed-bottom');
+        $('#cookie').remove();
+    }
+
+    if (window.localStorage.getItem('cookieAccepted')) {
+        acceptCookie();
+    }
+</script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

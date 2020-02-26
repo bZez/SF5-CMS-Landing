@@ -1,0 +1,57 @@
+{% block stylesheets %}
+    <style>
+        .tab {
+            display: block;
+            background: white;
+            padding: 1rem;
+            margin:1rem;
+            width: calc(50% - 2rem);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+        }
+        .tab:not(.coord){
+            cursor: pointer;
+        }
+        .tab.coord input{
+            margin-bottom: 1rem;
+        }
+        .selected{
+            border: 1px solid red;
+        }
+
+        a.delBtn {
+            position:relative;
+            top:-50px;
+            left:calc(100% - 30px)
+        }
+        p {
+            margin: 0!important;
+        }
+        .tab.coord {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            opacity: .5;
+        }
+
+    </style>
+{% endblock %}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<div class="row">
+    <div class="col-12 text-center mb-3">
+        <a href="#" class="btn bg-custom text-white" onclick="addTab()">Ajouter un onglet</a>
+        <a href="#" class="btn bg-custom text-white" data-toggle="modal" data-target="#inputModalCenter">Ajouter un champs</a>
+        <a href="#" class="btn bg-custom text-white"  data-toggle="modal" data-target="#listModalCenter">Ajouter une liste</a>
+        <a href="#" class="btn bg-custom text-white" onclick="addLabel()">Ajouter un label</a>
+    </div>
+</div>
+<div id="editable" class="row"></div>
+<div class="row">
+    <a class="btn btn-warning" href="{{ path('simulator_index') }}"><i class="fas fa-backward"></i> Retour</a> &nbsp;
+    <button class="btn bg-custom text-white" id="update">{{ button_label|default('Save') }}</button>
+</div>
+{{ form_end(form) }}
+
+
+

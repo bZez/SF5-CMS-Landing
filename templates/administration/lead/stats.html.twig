@@ -1,0 +1,145 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Lead index{% endblock %}
+
+{% set nbMax = 0 %}
+            {% for lead in leads %}
+                {% if nbMax < lead.Nb %}
+
+                    {% set nbMax = lead.Nb %}
+                {% endif %}
+            {% endfor %}
+{% block body %}
+    <div class="col-12 p-3 p-md-5 rounded bg-light shadow">
+
+        <h1 class="h3">Listing des leads
+            {% if (is_granted('ROLE_LEAD') or is_granted('ROLE_ADMIN')) and leads|length > 0 %}
+                <span class="float-md-right">
+                    <a href="{{ path('lead_export') }}" class="btn bg-custom text-white w-100" id="export_new">
+                        <i class="fas fa-download"></i> Exporter les nouveaux leads
+                    </a>
+           </span>
+            {% endif %}
+        </h1>
+        <h6 class="text-black-50">Par défaut cette page affiche les nouveaux leads aquis depuis le dernier export.</h6>
+        <hr>
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3 mb-md-0">
+                <form action="" method="POST">
+                    <button class="btn bg-custom text-white w-100" name="dateDebut" value="{{ ''|date('Y-m-d') }}">Aujourd'hui</button>
+                </form>
+            </div>
+            <div class="col-12 col-md-4 mb-3 mb-md-0">
+                <form action="" method="POST">
+                    <button class="btn bg-custom text-white w-100" name="dateDebut" value="{{ ''|date_modify("-7 day")|date('Y-m-d') }}">Cette semaine (-7jours)</button>
+                </form>
+            </div>
+            <div class="col-12 col-md-4">
+                <form action="" method="POST">
+                    <button class="btn bg-custom text-white w-100" name="dateDebut" value="{{ '' | date_modify('first day of this month') | date('Y-m-d') }}">Depuis le début du mois</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <form action="" method="post">
+            <div class="form-row">
+                <div class="col">
+                    <label for="dateDebut">Début:</label>
+                    <input type="date" id="dateDebut" class="form-control" name="dateDebut">
+                </div>
+                <div class="col">
+                    <label for="dateFin">Fin:</label>
+                    <input type="date" id="dateFin" class="form-control" name="dateFin">
+                </div>
+                <div class="col">
+                    <label for="page">Page:</label>
+                    <select name="page" id="page" class="form-control">
+                        <option value="">Toutes les pages...</option>
+                        {% for page in pages %}
+                            <option value="{{ page.id }}">{{ page.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12 col-md-1 mt-3 mt-md-0">
+                    <label for="" class="d-none d-md-block">&nbsp;</label>
+                    <button type="submit" class="btn bg-custom text-white">Envoyer</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                {% include 'administration/map.html.twig' %}
+            </div>
+        </div>
+        {% if leads|length > 0 %}
+           <div class="table-responsive">
+               <table class="table table-striped table-bordered w-100 mb-0" >
+                   <thead>
+                   <tr>
+                       <th>Département</th>
+                       {% for source in sources %}
+                           <th class="col-1 text-right" data-toggle="tooltip"
+                               title="{{ source["nom"] }}">{{ source["id"] }}</th>
+                       {% endfor %}
+                       <th class="col-1 text-right">Total</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   {% for dep in deps %}
+                       {% set total = 0 %}
+                       <tr>
+                           <td>{{ dep }} - {{departements[dep]}} </td>
+                           {% for source in sources %}
+                               {% if source["deps"][dep] is defined %}
+                                   {% set total = total + source["deps"][dep] %}
+                                   <td class="col-1 text-right">{{ source["deps"][dep] }}</td>
+                               {% else %}
+                                   <td></td>
+                               {% endif %}
+                           {% endfor %}
+                           <td class="col-1 text-right">{{ total }}</td>
+                       </tr>
+                   {% endfor %}
+                   <tfoot>
+                   <tr class="bg-custom text-dark">
+                       <td><b class="text-dark">Total</b></td>
+                       {% set totalGlobal = 0 %}
+                       {% for source in sources %}
+                           {% set total = 0 %}
+                           {% for dep in deps %}
+                               {% if source["deps"][dep] is defined %}
+                                   {% set total = total + source["deps"][dep] %}
+                                   {% set totalGlobal = totalGlobal + source["deps"][dep] %}
+                               {% endif %}
+                           {% endfor %}
+                           <td class="col-1 text-right">{{ total }}</td>
+                       {% endfor %}
+                       <td class="col-1 text-right">{{ totalGlobal }}</td>
+                   </tr>
+                   </tfoot>
+                   </tbody>
+               </table>
+           </div>
+        {% else %}
+            <div class="col-12 text-center">Aucun nouveau leads depuis le dernier export</div>
+        {% endif %}
+        <a class="btn bg-custom text-white col-12 mt-3" href="{{ path('admin') }}"><i class="fas fa-backward"></i> Retour Admin</a>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {% if nbMax > 0 %}
+        <script>
+            {% for dep in deps %}
+            {% set total = 0 %}
+            {% for source in sources %}
+            {% if source["deps"][dep] is defined %}
+            {% set total = total + source["deps"][dep] %}
+            {% endif %}
+            {% endfor %}
+            $('.land.departement{{ dep }}').attr('data-toggle', 'tooltip').attr('title',"{{ departements[dep] }} <br> {{ total ? total : 0 }} Leads").css('fill', 'rgba(255,133,33,{{ total / nbMax }})');
+            {% endfor %}
+            $('[data-toggle="tooltip"]').tooltip({html:true});
+        </script>
+    {% endif %}
+{% endblock %}

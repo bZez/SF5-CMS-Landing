@@ -1,0 +1,46 @@
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+    /*background-color: rgba(221, 79, 57, 0.61);*/
+    /*background-color: rgba(117, 178, 32, 0.61);*/
+    background-color: rgba(255, 134, 29, 0.62);
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+#prevBtn {
+    background-color: #bbbbbb;
+}
+.step_container {
+    /*background: rgba(221, 79, 57, 0.53);*/
+    /*background: rgba(117, 178, 32, 0.53);*/
+    background: rgba(255, 134, 29, 0.53);
+    border-radius: 15px;
+    overflow: hidden;
+}
+/* Make circles that indicate the steps of the form: */
+.step {
+    /*background-color: rgba(221, 79, 57, 0.16);*/
+    /*background-color: rgba(117, 178, 32, 0.16);*/
+    background-color: rgba(255, 134, 29, 0.16);
+    opacity: 1;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    /*background-color: #dd4f39;*/
+    /*background-color: #75b220;*/
+    /*background-color: #1674fb;;*/
+    background-color: #ff861d;
+}
+.alert-box {
+    background-color: #eee;
+    border-radius: 50px;
+    max-width: 950px;
+}

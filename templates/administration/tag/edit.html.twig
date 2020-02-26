@@ -1,0 +1,12 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Edit Tag{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1>Edition de Tag</h1>
+
+    {{ include('administration/tag/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('administration/tag/_delete_form.html.twig') }}
+</div>
+{% endblock %}

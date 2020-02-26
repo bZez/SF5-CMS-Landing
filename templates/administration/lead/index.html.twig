@@ -1,0 +1,65 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Lead index{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1 class="h3">Listing des leads
+        {% if is_granted('ROLE_LEAD') or is_granted('ROLE_ADMIN') %}
+            <span class="float-right">
+                  <a href="{{ path('lead_stats') }}" class="btn bg-custom text-white"><i class="fas fa-chart-line"></i> Statistiques</a>
+                  <a href="{{ path('lead_export') }}" class="btn bg-custom text-white mb-3 mb-md-0 mt-3 mt-md-0"><i class="fas fa-chart-line"></i> Exportation</a>
+           </span>
+        {% endif %}
+    </h1>
+    <h6 class="text-black-50">Sûr cette page apparaissent uniquement les leads aquis depuis le dernier export.</h6>
+    <hr>
+        {% for page in pages %}
+       <div class="col-12">
+           <div class="row mb-3" data-toggle="collapse" data-target="#collapse{{ page.id }}" aria-expanded="false" aria-controls="collapse{{ page.id }}" >
+               <div class="col-12 btn bg-custom text-white">
+                   <strong>{{ page.title|capitalize }}</strong> - {{ page.newLeads|length }}
+               </div>
+           </div>
+           <div id="collapse{{ page.id }}" class="collapse">
+               <table class="table">
+                   <thead>
+                   <tr>
+                       <th>Id</th>
+                       <th>Nom</th>
+                       <th>Prenom</th>
+                       <th>Adresse</th>
+                       <th>CodePostal</th>
+                       <th>Ville</th>
+                       <th>Email</th>
+                       <th>Telephone</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   {% for lead in page.newLeads %}
+
+                       <tr>
+                           <td>{{ lead.id }}</td>
+                           <td>{{ lead.nom }}</td>
+                           <td>{{ lead.prenom }}</td>
+                           <td>{{ lead.adresse }}</td>
+                           <td>{{ lead.codePostal }}</td>
+                           <td>{{ lead.ville }}</td>
+                           <td>{{ lead.email }}</td>
+                           <td>{{ lead.telephone }}</td>
+                       </tr>
+                   {% else %}
+                       <tr>
+                           <td colspan="11">no records found</td>
+                       </tr>
+                   {% endfor %}
+                   </tbody>
+               </table>
+           </div>
+       </div>
+        {% endfor %}
+    <div class="row">
+        <div class="col-12"><a class="btn bg-custom text-white" href="{{ path('admin') }}"><i class="fas fa-backward"></i> Retour Admin</a></div>
+    </div>
+</div>
+{% endblock %}

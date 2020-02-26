@@ -1,0 +1,8 @@
+{% block stylesheets %}
+    <style>.tab{display: block;}</style>
+{% endblock %}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<div id="editable" class="row" contenteditable="true"></div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

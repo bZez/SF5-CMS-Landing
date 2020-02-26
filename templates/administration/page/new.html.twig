@@ -1,0 +1,17 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}New Admin{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <div class="row">
+        <h1 class="col">Nouvelle page</h1>
+
+    {{ include('administration/page/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+    <a class="btn btn-warning" href="{{ path('page_index') }}"><i class="fas fa-backward"></i> Retour</a>
+</div>
+{% endblock %}
+{% block javascripts %}
+    
+{% endblock %}

@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<div class="row">
+    <a class="btn btn-warning" href="{{ path('tag_index') }}"><i class="fas fa-backward"></i> Retour</a> &nbsp;
+    <button class="btn bg-custom text-white">{{ button_label|default('Enregistrer') }}</button> &nbsp;
+</div>
+{{ form_end(form) }}
+

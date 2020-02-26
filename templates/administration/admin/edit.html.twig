@@ -1,0 +1,20 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Edit Admin{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1>Editer <span class="text-black-50">{{ admin.email }}</span></h1>
+
+    {{ include('administration/admin/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+
+    {{ include('administration/admin/_delete_form.html.twig') }}
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $('#admin_password').removeAttr('required')
+    </script>
+{% endblock %}

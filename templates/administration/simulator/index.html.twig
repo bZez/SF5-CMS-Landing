@@ -1,0 +1,35 @@
+{% extends 'base.admin.html.twig' %}
+
+{% block title %}Simulator index{% endblock %}
+
+{% block body %}
+<div class="col-12 p-5 rounded bg-light shadow">
+    <h1>Gestion des simulateurs    <a class="btn bg-custom text-white float-right" href="{{ path('simulator_new') }}"><i class="fas fa-plus"></i> Nouveau formulaire</a></h1>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-1">Id</th>
+                <th>Content</th>
+                <th class="col-1">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for simulator in simulators %}
+            <tr>
+                <td>{{ simulator.id }}</td>
+                <td><div class="btn btn-sm bg-custom text-white w-100" onmouseenter="$(this).next('div:hidden').removeAttr('hidden')" onmouseleave="$(this).next('div:visible').attr('hidden',true)"><i class="fas fa-eye"></i> Aperçu du formulaire</div><div hidden class="bg-white p-5 rounded border shadow"><h1 class="h4"><i class="fas fa-quote-left small text-custom"></i> {{ simulator.title }} <i class="fas fa-quote-right small text-custom"></i></h1>{{ simulator.content|replace({'tab':'tab d-block'})|raw }}</div></td>
+                <td class="text-right">
+                    <a class="btn btn-sm bg-custom text-white" href="{{ path('simulator_edit', {'id': simulator.id}) }}"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn bg-custom text-white" href="{{ path('admin') }}"><i class="fas fa-backward"></i> Retour Admin</a>
+</div>
+{% endblock %}
