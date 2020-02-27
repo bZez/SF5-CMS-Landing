@@ -72,6 +72,11 @@ class Lead
      */
     private $exported;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $eligible;
+
 
     public function __construct()
     {
@@ -217,6 +222,18 @@ class Lead
     public function setExported(bool $exported): self
     {
         $this->exported = $exported;
+
+        return $this;
+    }
+
+    public function getEligible(): ?bool
+    {
+        return $this->eligible;
+    }
+
+    public function setEligible(bool $eligible): self
+    {
+        $this->eligible = $eligible;
 
         return $this;
     }

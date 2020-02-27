@@ -20,7 +20,7 @@
                     <select name="inputType" id="input_type" class="form-control mb-3">
                         <option value="email">Email</option>
                         <option value="tel">Tel</option>
-                        <option value="text">Text</option>
+                        <option value="text">Texte</option>
                         <option value="number">Nombre</option>
                     </select>
                     <h6 class="font-weight-bold text-black-50">Placeholder :</h6>
@@ -52,6 +52,9 @@
                     <h6 class="font-weight-bold text-black-50">Nom du champ :</h6>
                     <input type="text" name="selectName" id="select_name" class="form-control mb-3">
                     <h6 class="font-weight-bold text-black-50">Options : (nom:valeur)</h6>
+                    <h6 class="text-black-50">Ajouter "n_" à la valeur pour rendre inéligible. <br>
+                        (<b>exemple</b> : statut:<b>n_</b>locataire)</h6>
+
                     <textarea class="form-control" name="selectOptions" id="select_options"></textarea>
                 </div>
                 <div class="modal-footer">
@@ -66,7 +69,7 @@
     </div>
     <div class="col-12 p-5 rounded bg-light shadow">
         <h1>{{ simulator.page.title }}</h1>
-            {{ include('administration/simulator/_form.html.twig', {'button_label': 'Enregistrer les modifications'}) }}
+        {{ include('administration/simulator/_form.html.twig', {'button_label': 'Enregistrer les modifications'}) }}
         <div class="row">
             {{ include('administration/simulator/_delete_form.html.twig') }}
         </div>

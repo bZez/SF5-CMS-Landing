@@ -49,6 +49,7 @@ class PageType extends AbstractType
             ])
             ->add('isIndexed',CheckboxType::class, ['attr'=>['class'=>'d-inline-block'],'required'=>false,'label'=>'Index','label_attr' => ['class' => 'switch-custom']])
             ->add('isFollowed',CheckboxType::class, ['attr'=>['class'=>'d-inline-block'],'required'=>false,'label'=>'Follow','label_attr' => ['class' => 'switch-custom']])
+            ->add('header', TextareaType::class, ['attr' => ['class' => 'editor'],'label'=>false])
             ->add('content', TextareaType::class, ['attr' => ['class' => 'editor'],'label'=>false]);
     }
 

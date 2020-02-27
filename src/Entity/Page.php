@@ -88,6 +88,11 @@ class Page
      */
     private $base;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $header;
+
     public function __construct()
     {
         $this->leads = new ArrayCollection();
@@ -171,9 +176,9 @@ class Page
     public function getNewLeads()
     {
         $news = [];
-        foreach ($this->leads as $lead){
+        foreach ($this->leads as $lead) {
             /** @var Lead $lead */
-            if($lead->getExported() === false){
+            if ($lead->getExported() === false && $lead->getEligible() === true) {
                 $news[] = $lead;
             }
         }
@@ -190,7 +195,8 @@ class Page
         return $this;
     }
 
-    public function removeLead(Lead $lead): self
+    public
+    function removeLead(Lead $lead): self
     {
         if ($this->leads->contains($lead)) {
             $this->leads->removeElement($lead);
@@ -206,12 +212,14 @@ class Page
     /**
      * @return Collection|Tag[]
      */
-    public function getTags(): Collection
+    public
+    function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function addTag(Tag $tag): self
+    public
+    function addTag(Tag $tag): self
     {
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
@@ -221,7 +229,8 @@ class Page
         return $this;
     }
 
-    public function removeTag(Tag $tag): self
+    public
+    function removeTag(Tag $tag): self
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
@@ -234,98 +243,128 @@ class Page
         return $this;
     }
 
-    public function getIsIndexed(): ?bool
+    public
+    function getIsIndexed(): ?bool
     {
         return $this->isIndexed;
     }
 
-    public function setIsIndexed(?bool $isIndexed): self
+    public
+    function setIsIndexed(?bool $isIndexed): self
     {
         $this->isIndexed = $isIndexed;
 
         return $this;
     }
 
-    public function getIsFollowed(): ?bool
+    public
+    function getIsFollowed(): ?bool
     {
         return $this->isFollowed;
     }
 
-    public function setIsFollowed(?bool $isFollowed): self
+    public
+    function setIsFollowed(?bool $isFollowed): self
     {
         $this->isFollowed = $isFollowed;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public
+    function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public
+    function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getKeywords(): ?string
+    public
+    function getKeywords(): ?string
     {
         return $this->keywords;
     }
 
-    public function setKeywords(?string $keywords): self
+    public
+    function setKeywords(?string $keywords): self
     {
         $this->keywords = $keywords;
 
         return $this;
     }
 
-    public function getFavicon(): ?string
+    public
+    function getFavicon(): ?string
     {
         return $this->favicon;
     }
 
-    public function setFavicon(?string $favicon): self
+    public
+    function setFavicon(?string $favicon): self
     {
         $this->favicon = $favicon;
 
         return $this;
     }
 
-    public function getLogo(): ?string
+    public
+    function getLogo(): ?string
     {
         return $this->logo;
     }
 
-    public function setLogo(?string $logo): self
+    public
+    function setLogo(?string $logo): self
     {
         $this->logo = $logo;
 
         return $this;
     }
 
-    public function getCustomColor(): ?string
+    public
+    function getCustomColor(): ?string
     {
         return $this->customColor;
     }
 
-    public function setCustomColor(?string $customColor): self
+    public
+    function setCustomColor(?string $customColor): self
     {
         $this->customColor = $customColor;
 
         return $this;
     }
 
-    public function getBase(): ?int
+    public
+    function getBase(): ?int
     {
         return $this->base;
     }
 
-    public function setBase(int $base): self
+    public
+    function setBase(int $base): self
     {
         $this->base = $base;
+
+        return $this;
+    }
+
+    public
+    function getHeader(): ?string
+    {
+        return $this->header;
+    }
+
+    public
+    function setHeader(?string $header): self
+    {
+        $this->header = $header;
 
         return $this;
     }

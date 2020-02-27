@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    {#<base href="//simulation-energie.fr">#}
+{#    <base href="//simulation-energie.fr">#}
     {% if page.isIndexed is defined and page.isFollowed is defined %}
         <meta name="robots"
               content="{{ page.isIndexed ? 'index':'noindex' }}, {{ page.isFollowed ? 'follow':'nofllow' }}">
@@ -95,8 +95,21 @@
             width: 100vw;
             height: 100vh;
             background: rgba(255, 255, 255, 1);
+            overflow-y:auto ;
+            overflow-x: hidden;
         }
     </style>
+    <!-- Global site tag (gtag.js) - Google Ads: 710428717 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-710428717"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-710428717');
+    </script>
+
+
 </head>
 <body>
 {% if page.tags %}
@@ -143,8 +156,12 @@
         <div class="container h-100 mb-5 mb-md-0">
             <div class="row">
                 <div class="col-12 text-center">
-                    <p class="font-weight-bold text-warning"> Merci la loi transition énergétique !</p>
-                    <h1 class="h4 text-white">VOTRE NOUVELLE CHAUDIÈRE GAZ GRATUITE *</h1>
+                    {% if page.header is defined and page.header is not null %}
+                        {{ page.header|raw }}
+                    {% else %}
+                        <p class="font-weight-bold text-warning">Formulaire d'éligibilité</p>
+                        <h1 class="h4 text-white text-uppercase">Estimez vos économies</h1>
+                    {% endif %}
                 </div>
             </div>
             <div class="row mb-md-5 bg-white shadow rounded p-3 p-md-5 m-1" id="eligibilite">
@@ -166,37 +183,37 @@
                             <div class="row text-center">
                                 <p class="col-12 col-md-4">
                                     <input required type="radio" id="fioul" value="Fioul"
-                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                           name="lead[custom][chauffage]" onclick="bodyScroll();nextPrev(1)"/>
                                     <label for="fioul" class="btn btn-outline-secondary w-100"><i
                                                 class="fas fa-gas-pump text-warning"></i> Fioul</label>
                                 </p>
                                 <p class="col-12 col-md-4">
                                     <input type="radio" id="gaz" value="Gaz" name="lead[custom][chauffage]"
-                                           onclick="nextPrev(1)"/>
+                                           onclick="bodyScroll();nextPrev(1)"/>
                                     <label for="gaz" class="btn btn-outline-secondary w-100"><i
                                                 class="fas fa-burn text-warning"></i> Gaz</label>
                                 </p>
                                 <p class="col-12 col-md-4">
                                     <input type="radio" id="electrique" value="Electrique"
-                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                           name="lead[custom][chauffage]" onclick="bodyScroll();nextPrev(1)"/>
                                     <label for="electrique" class="btn btn-outline-secondary w-100"><i
                                                 class="fas fa-charging-station text-warning"></i> Electrique</label>
                                 </p>
                                 <p class="col-12 col-md-4 collapse collapserow">
                                     <input required type="radio" id="solaire" value="Solaire"
-                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                           name="lead[custom][chauffage]" onclick="bodyScroll();nextPrev(1)"/>
                                     <label for="solaire" class="btn btn-outline-secondary w-100"><i
                                                 class="fas fa-solar-panel text-warning"></i> Solaire</label>
                                 </p>
                                 <p class="col-12 col-md-4 collapse collapserow">
                                     <input type="radio" id="geothermie" value="Géothemrie"
-                                           name="lead[custom][chauffage]" onclick="nextPrev(1)"/>
+                                           name="lead[custom][chauffage]" onclick="bodyScroll();nextPrev(1)"/>
                                     <label for="geothermie" class="btn btn-outline-secondary w-100"><i
                                                 class="fas fa-globe-europe text-warning"></i> Géothermie</label>
                                 </p>
                                 <p class="col-12 col-md-4 collapse collapserow">
                                     <input type="radio" id="bois" value="Bois" name="lead[custom][chauffage]"
-                                           onclick="nextPrev(1)"/>
+                                           onclick="bodyScroll();nextPrev(1)"/>
                                     <label for="bois" class="btn btn-outline-secondary w-100"><i
                                                 class="fas fa-tree text-warning"></i> Bois</label>
                                 </p>
@@ -212,12 +229,12 @@
                             </div>
                         </div>
                         <div class="tab coord">
-                            <div class="fixed-top p-3">
-                                <img src="{{ asset('img/simulation-energie-logo-couleur-orange.png') }}"
-                                     alt="Logo Simulation-Energie.fr" width="200px">
-                            </div>
                             <div class="container h-100">
                                 <div class="row align-items-center h-100">
+                                        <div class="p-3">
+                                            <img src="{{ asset('img/simulation-energie-logo-couleur-orange.png') }}"
+                                                 alt="Logo Simulation-Energie.fr" width="200px">
+                                        </div>
                                     <div class="col-12 text-center">
                                         <p class="h5 text-custom">INFORMATIONS VOUS CONCERNANT</p>
                                         <div class="alert-box row align-items-center p-3 m-2 ml-md-auto mr-md-auto mt-3 mb-3">
@@ -270,6 +287,13 @@
                                                     <option value="Appartement">Un appartement</option>
                                                 </select>
                                             </div>
+                                            <h6 class="font-weight-bold text-warning h5 mt-3">Dont vous êtes :</h6>
+                                            <div class="form-row mt-3">
+                                                <select name="lead[custom][statut]" id="lead_statut" class="form-control">
+                                                    <option value="Proprietaire">Propriétaire</option>
+                                                    <option value="n_Locataire">Locataire</option>
+                                                </select>
+                                            </div>
                                             <input placeholder="Votre adresse..."
                                                    oninput="this.className = 'form-control border-top-0 border-left-0 border-right-0 mt-3'"
                                                    name="lead[adresse]"
@@ -293,13 +317,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 text-center mt-5">
-                                            <button type="button" id="nextBtn" onclick="nextPrev(1)"
-                                                    class="btn btn-lg text-white bg-custom">J'en profite
+                                        <div class="col-12 text-center mt-5 mb-5 pb-5">
+                                            <button type="button" id="nextBtn" onclick="bodyScroll();nextPrev(1)"
+                                                    class="btn btn-lg text-white bg-custom mb-5">J'en profite
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                             {% endif %}
                             <input type="hidden" hidden value="{{ page ? page.id : '-1' }}" name="lead[page]">
@@ -383,7 +408,9 @@
         $('#cookiebar').removeClass('fixed-bottom');
         $('#cookie').remove();
     }
-
+    function bodyScroll() {
+        $('body').addClass('overflow-hidden');
+    }
     if (window.localStorage.getItem('cookieAccepted')) {
         acceptCookie();
     }

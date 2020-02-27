@@ -54,6 +54,7 @@ class LeadRepository extends ServiceEntityRepository
                 ->setParameter('dateFin', $dateFin)
                 ->setParameter('dateDebut', $dateDebut);
         }
+        $query = $query->andWhere('p.eligible = 1');
         $query = $query->select('pa.id AS sourceId, pa.title AS sourceNom, SUBSTRING(p.codePostal, 1, 2) AS DEP, count(p.id) as Nb')
             ->groupBy('sourceId, sourceNom, DEP');
         return $query->getQuery()
@@ -114,6 +115,7 @@ class LeadRepository extends ServiceEntityRepository
         if ($count != "") {
             $query = $query->setMaxResults($count);
         }
+        $query = $query->andWhere('p.eligible = 1');
         return $query->getQuery()
             ->getResult();
     }

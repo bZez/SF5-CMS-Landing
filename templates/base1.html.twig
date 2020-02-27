@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-     <base href="//simulation-energie.fr">
+     {#<base href="//simulation-energie.fr">#}
     {% if page.isIndexed is defined and page.isFollowed is defined %}
         <meta name="robots"
               content="{{ page.isIndexed ? 'index':'noindex' }}, {{ page.isFollowed ? 'follow':'nofllow' }}">
@@ -80,6 +80,15 @@
             background: white!important;
         }
     </style>
+    <!-- Global site tag (gtag.js) - Google Ads: 710428717 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-710428717"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-710428717');
+    </script>
 </head>
 <body>
 {% if page.tags %}
@@ -133,21 +142,25 @@
         <div class="row header-ctn">
             <div class=" col-12 col-md-8 p-5 bg-custom text-white">
                 <div class="p-3 text-justify">
-                    <h1 class="h2">L'Etat finance votre pompe à chaleur !</h1>
-                    <p class="h6"> Avec la Prime Coup de pouce Energie 2020, l’Etat vous offre jusqu’à  10 700€ pour votre chauffage !</p>
+                    {% if page.header is defined and page.header is not null %}
+                        {{ page.header|raw }}
+                    {% else %}
+                        <h1 class="h2">L'Etat finance votre pompe à chaleur !</h1>
+                        <p class="h6"> Avec la Prime Coup de pouce Energie 2020, l’Etat vous offre jusqu’à  10 700€ pour votre chauffage !</p>
+                        <br>
+                        <p class="h6">Le Ministère de la Transition Energétique à lancé la Prime Coup de pouce Energie 2020 : l’Etat décide de financer l’installation de pompes à chaleur nouvelle génération dans les maisons des Français.
+                            <br>
+                            <br>
+                            La fin des grosses factures de chauffage approche : chaque logement individuel va pouvoir économiser jusqu'à 80% sur ses factures annuelles de chauffage !
+                            <br>
+                            <br>
+                            Aujourd’hui, la puissance des pompes à chaleur est vraiment énorme : cette source d'énergie gratuite ( oui l’air c’est gratuit).  Permet au habitants de bénéficier d'une température optimale de chauffe dans la maison toute l'année. Mais surtout de ne plus subir les augmentations colossale du coût des énergies fossiles (Gaz, Fioul ou électricité).
+                            <br>
+                            <br>
+                            Grâce aux moyens très importants débloqués en 2020 par l’Etat (plus de 9,2 milliards d’euros), des maintenants obtenez votre pompe à chaleur et faites des économies considérables !</p>
+                    {% endif %}
                     <br>
-                    <p class="h6">Le Ministère de la Transition Energétique à lancé la Prime Coup de pouce Energie 2020 : l’Etat décide de financer l’installation de pompes à chaleur nouvelle génération dans les maisons des Français.
-                        <br>
-                        <br>
-                        La fin des grosses factures de chauffage approche : chaque logement individuel va pouvoir économiser jusqu'à 80% sur ses factures annuelles de chauffage !
-                        <br>
-                        <br>
-                        Aujourd’hui, la puissance des pompes à chaleur est vraiment énorme : cette source d'énergie gratuite ( oui l’air c’est gratuit).  Permet au habitants de bénéficier d'une température optimale de chauffe dans la maison toute l'année. Mais surtout de ne plus subir les augmentations colossale du coût des énergies fossiles (Gaz, Fioul ou électricité).
-                        <br>
-                        <br>
-                        Grâce aux moyens très importants débloqués en 2020 par l’Etat (plus de 9,2 milliards d’euros), des maintenants obtenez votre pompe à chaleur et faites des économies considérables !</p>
-                    <br>
-                    <a href="#" class="btn border bg-transparent text-white"><small>{{'Estimez vos économies'|upper}}</small></a>
+                    <a href="{{page.nom}}#eligibilite" class="btn border bg-transparent text-white"><small>{{'Estimez vos économies'|upper}}</small></a>
                 </div>
             </div>
             <div class="d-none d-md-inline-block col-md-4 p-5 bg-image"></div>
@@ -248,7 +261,7 @@
                                     <label for="proprio" class="btn btn-lg btn-danger w-100 mt-3">Propriétaire</label>
                                 </p>
                                 <p>
-                                    <input type="radio" id="locataire" value="Locataire" name="lead[custom][statut]" onclick="nextPrev(1)" />
+                                    <input type="radio" id="locataire" value="n_Locataire" name="lead[custom][statut]" onclick="nextPrev(1)" />
                                     <label for="locataire" class="btn btn-lg btn-danger w-100 mt-3">Locataire</label>
                                 </p>
                             </div>

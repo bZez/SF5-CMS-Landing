@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-   <base href="//simulation-energie.fr">
+   {#<base href="//simulation-energie.fr">#}
     {% if page.isIndexed is defined and page.isFollowed is defined %}
         <meta name="robots"
               content="{{ page.isIndexed ? 'index':'noindex' }}, {{ page.isFollowed ? 'follow':'nofllow' }}">
@@ -55,6 +55,17 @@
 
         </style>
     {% endif %}
+    <!-- Global site tag (gtag.js) - Google Ads: 710428717 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-710428717"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-710428717');
+    </script>
+
+
 </head>
 <body>
 {% if page.tags %}
@@ -79,10 +90,10 @@
                     <img src="{% if page.logo is defined and page.logo is not null %}img/{{ page.logo }}{% else %}{{ asset('img/simulation-energier-logo.png') }}{% endif %}"
                          alt="Logo - Ma pompe à chaleur" width="170px">
                 </a>
-                <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                {#<button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                         class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars text-white"></i></button>
-
+#}
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active"><a href="tel:0272240350" class="nav-link font-weight-bold "><i
@@ -121,21 +132,26 @@
                             <div class="col-1">S</div>
                         </div>
                     </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Bénéficiez jusqu'à 10 700€ d'aides de l'état !
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Profitez de la prime énergie jusqu'a 5500 €
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Profitez de la prime Ma prime Renov' jusqu'a 5200 € !
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Réduisez jusqu'à 80% vos factures de énergetique !
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Technicien local agrée RGE
-                    </div>
+                    {% if page.header is defined and page.header is not null %}
+                        {{ page.header|raw }}
+                    {% else %}
+                        <div class="row align-items-center mt-3 text-white">
+                            <i class="fas fa-check "></i> &nbsp; Bénéficiez jusqu'à 10 700€ d'aides de l'état !
+                        </div>
+                        <div class="row align-items-center mt-3 text-white">
+                            <i class="fas fa-check "></i> &nbsp; Profitez de la prime énergie jusqu'a 5500 €
+                        </div>
+                        <div class="row align-items-center mt-3 text-white">
+                            <i class="fas fa-check "></i> &nbsp; Profitez de la prime Ma prime Renov' jusqu'a 5200 € !
+                        </div>
+                        <div class="row align-items-center mt-3 text-white">
+                            <i class="fas fa-check "></i> &nbsp; Réduisez jusqu'à 80% vos factures de énergetique !
+                        </div>
+                        <div class="row align-items-center mt-3 text-white">
+                            <i class="fas fa-check "></i> &nbsp; Technicien local agrée RGE
+                        </div>
+                    {% endif %}
+
 
                     <button class="btn border bg-transparent text-white mt-3">J'EN PROFITE TOUT DE SUITE</button>
                 </div>

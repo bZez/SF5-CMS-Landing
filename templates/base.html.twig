@@ -1,354 +1,266 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    {#    <base href="//simulation-energie.fr">#}
-    {% if page.isIndexed is defined and page.isFollowed is defined %}
-        <meta name="robots"
-              content="{{ page.isIndexed ? 'index':'noindex' }}, {{ page.isFollowed ? 'follow':'nofllow' }}">
-    {% endif %}
-    {% if page.description is defined and page.description is not null %}
-        <meta name="description" content="{{ page.description }}">
-    {% endif %}
-    {% if page.keywords is defined and page.keywords is not null %}
-        <meta name="keywords" content="{{ page.keywords }}">
-    {% endif %}
-    {% if page.favicon is defined and page.favicon is not null %}
-        <link rel="icon" type="image/png" href="img/icon/{{ page.favicon }}"/>
-    {% endif %}
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
-    {% block stylesheets %}{% endblock %}
-    {% if page.tags %}
-        {% for tag in page.tags %}
-            {% if 'head' in tag.position %}
-                {{ tag.content|raw }}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    {% if page.customColor is defined and page.customColor is not null %}
-        <style>
-            .step {
-                background: {{ page.customColor }};
-                opacity: .5;
-            }
-            .bg-custom, .step.finish {
-                background: {{page.customColor}};
-                opacity: 1;
-            }
-
-            .text-custom, b {
-                color: {{page.customColor}};
-            }
-
-            .header {
-                background: linear-gradient(177deg, {{page.customColor}} 80%, white 80%);
-            }
-
-
-        </style>
-    {% endif %}
-</head>
-<body>
-{% if page.tags %}
-    {% for tag in page.tags %}
-        {% if 'bodytop' in tag.position %}
-            {{ tag.content|raw }}
-        {% endif %}
-    {% endfor %}
-{% endif %}
-<div id="fader">
-    <div class="row h-100 align-items-center">
-        <div class="col-12 text-center p-5">
-            <img src="{{ asset('img/simulation-energie-logo-couleur-orange.png') }}" alt="Logo - Ma pompe à chaleur"
-                 width="100%" style="max-width: 400px;height: auto;">
+<div class="container-fluid">
+    <div class="row p-3 p-lg-5">
+        <div class="col-12 col-lg-6 bg-light p-1 p-md-5">
+            <div class="col-12 p-5 p-md-0">
+                <h4 class="text-custom font-weight-bold">Pourquoi c’est gratuit ?</h4>
+                <h3 class="text-uppercase text-warning"> Grâce à Ma Prime Renov' !</h3>
+                <p class="text-black-50 h5 mb-3">
+                    Depuis 2019, le ministère de la Transition Écologique et Solidaire a mis à disposition des
+                    ménages la
+                    Prime à la conversion chaudière ou autrement appelée « Coup de Pouce chauffage ».
+                    <br>
+                    <br>
+                    Selon vos revenus, vous pouvez bénéficier d’une aide financière pour vos projets d’économies
+                    d’énergie.
+                    Grâce à cette aide financière et en tant que signataire de la charte, HELLIO installe chez vous
+                    votre
+                    nouvelle chaudière gaz ou chaudière biomasse à très haut rendement.
+                </p>
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-6 text-center text-md-left mb-3 mb-mb-0">
+                        <a href="#eligibilite" class="btn btn-lg bg-custom text-white">J'en profite</a>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-right">
+                        <img src="/img/tecv.png" alt="" style="max-width: 100%" class="rounded border" height="75px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 p-0 m-0 mt-4 mt-lg-0">
+            <img src="/img/video-serigne.jpg" alt="" width="100%">
         </div>
     </div>
+
+    <div class="row pt-5">
+        <div class="col-12 p-3">
+            <h5 class="h2 text-uppercase text-warning text-center font-weight-bold">Mais comment ça marche
+                ?</h5>
+        </div>
+    </div>
+
+    <div class="row p-3 p-lg-5">
+        <div class="col-12 col-lg-4 p-3 p-md-5 text-center">
+            <i class="fas fa-desktop text-warning fa-4x"></i>
+            <br>
+            <p class="text-primary mt-3 h4">Etape 1</p>
+            <br>
+            <p class="text-black-50 mt-3 h4">Inscrivez-vous en ligne <br>
+                dès maintenant. <br>
+                Ça ne prend qu’une minute !</p>
+        </div>
+        <div class="col-12 col-lg-4 p-5 text-center">
+            <i class="fas fa-hard-hat text-warning fa-4x"></i>
+            <br>
+            <p class="text-primary mt-3 h4">Etape 1</p>
+            <br>
+            <p class="text-black-50 mt-3 h4">Inscrivez-vous en ligne <br>
+                dès maintenant. <br>
+                Ça ne prend qu’une minute !</p>
+        </div>
+        <div class="col-12 col-lg-4 p-5 text-center">
+            <i class="fas fa-burn text-warning fa-4x"></i>
+            <br>
+            <p class="text-primary mt-3 h4">Etape 1</p>
+            <br>
+            <p class="text-black-50 mt-3 h4">Inscrivez-vous en ligne <br>
+                dès maintenant. <br>
+                Ça ne prend qu’une minute !</p>
+        </div>
+    </div>
+
+    <div class="row align-items-center bg-light m-lg-4">
+        <div class="col-12 col-lg-6 p-1 p-md-5">
+            <div class="col-12 p-5">
+                <h3 class="text-uppercase text-warning">Votre nouvelle chaudière gaz</h3>
+                <ul class="list-unstyled h5 mt-3 mt-md-5 text-black-50">
+                    <li class="mb-3"><i class="fas fa-star text-warning"></i> Chaudière gaz condensation à très
+                        haute performance énergétique
+                    </li>
+                    <li class="mb-3"><i class="fas fa-star text-warning"></i> Installateurs qualifiés RGE</li>
+                    <li class="mb-3"><i class="fas fa-star text-warning"></i> Rendement saisonnier supérieur à 92 %
+                    </li>
+                    <li class="mb-3"><i class="fas fa-star text-warning"></i> Classe d’efficacité énergétique A</li>
+                    <li class="mb-3"><i class="fas fa-star text-warning"></i> Chaudière de 24 kW assurant le
+                        chauffage et l’eau chaude sanitaire
+                    </li>
+                    <li><i class="fas fa-star text-warning"></i> Modulation de la puissance permettant de chauffer
+                        de manière économique
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 p-1 p-md-5">
+            <div class="row align-items-center pr-5 pr-md-0 text-center">
+                <div class="col-6">
+                    <img src="/img/chaudiere-daikin.png" alt="Chaudiere" height="400px">
+                </div>
+                <div class="col-6">
+                    <span class="display-1 text-warning font-weight-bold" style="font-size:11em;text-shadow: 3px 1px 2px rgba(0, 0, 0, 0.3);">0<small class="display-4">€*</small></span>
+                    <br>
+                    <a href="#eligibilite" class="btn btn-lg bg-custom text-white">J'en profite</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="col-12 p-3 text-center">
+            <p class="text-black-50 font-weight-bold">Votre chaudière gratuite</p>
+            <h5 class="h2 text-uppercase text-warning text-center font-weight-bold">EXPERTS EN REMPLACEMENT DE CHAUDIÈRES !</h5>
+        </div>
+    </div>
+    <div class="row ml-lg-2 mr-lg-2 mt-lg-5 mb-lg-5">
+        <div class="col-12 col-lg-3 p-0">
+            <div class="col-12">
+                <img src="/img/video-alain.jpg" alt="Vidéo alain" width="100%">
+                <p class="text-primary mt-3 h4 mb-0">Alain L.</p> <br>
+                <p class="text-black-50 h4">Client SimulationEnergie.fr</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3 p-0">
+            <div class="col-12">
+                <img src="/img/video-alain.jpg" alt="Vidéo alain" width="100%">
+                <p class="text-primary mt-3 h4 mb-0">Alain L.</p> <br>
+                <p class="text-black-50 h4">Client SimulationEnergie.fr</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3 p-0">
+            <div class="col-12">
+                <img src="/img/video-alain.jpg" alt="Vidéo alain" width="100%">
+                <p class="text-primary mt-3 h4 mb-0">Alain L.</p> <br>
+                <p class="text-black-50 h4">Client SimulationEnergie.fr</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3 p-0">
+            <div class="col-12">
+                <img src="/img/video-alain.jpg" alt="Vidéo alain" width="100%">
+                <p class="text-primary mt-3 h4 mb-0">Alain L.</p> <br>
+                <p class="text-black-50 h4">Client SimulationEnergie.fr</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row align-items-center bg-light m-2 m-lg-4 p-5">
+        <div class="col-12  text-center">
+            <h4 class="text-warning text-uppercase font-weight-bold">Pourquoi changer votre chaudière gaz ?</h4>
+        </div>
+        <div class="col-12 col-lg-4 p-3 p-md-5 text-center">
+            <i class="fab fa-creative-commons-nc-eu text-custom fa-4x"></i>
+            <br>
+            <p class="text-warning mt-3 h4">CHAUFFAGE ÉCONOMIQUE</p>
+            <br>
+            <p class="text-black-50 h5">Jusqu’à 25% d’économies chaque mois
+                par rapport à votre ancienne chaudière</p>
+        </div>
+        <div class="col-12 col-lg-4 p-3 p-md-5 text-center">
+            <i class="fab fa-cloudscale text-custom fa-4x"></i>
+            <br>
+            <p class="text-warning mt-3 h4">PRENEZ LA MAIN SUR VOTRE CONSOMMATION</p>
+            <br>
+            <p class="text-black-50 h5">Thermostat d’ambiance pour piloter votre confort et garder le contrôle sur vos factures</p>
+        </div>
+        <div class="col-12 col-lg-4 p-3 p-md-5 text-center">
+            <i class="fas fa-home text-custom fa-4x"></i>
+            <br>
+            <p class="text-warning mt-3 h4">VALORISEZ VOTRE PATRIMOINE</p>
+            <br>
+            <p class="text-black-50 h5">Un équipement de chauffage neuf,
+                économe et design : un critère recherché</p>
+        </div>
+        <div class="col-12 col-lg-4 p-3 p-md-5 text-center">
+            <i class="fas fa-bolt text-custom fa-4x"></i>
+            <br>
+            <p class="text-warning mt-3 h4">ÉNERGIE ÉCONOME, AU COÛT ENCADRÉ</p>
+            <br>
+            <p class="text-black-50 h5">Une énergie plus économe que l’électricité
+                ou le fioul. Prix encadrés par l’État
+            </p>
+        </div>
+        <div class="col-12 col-lg-4 p-3 p-md-5 text-center">
+            <i class="fas fa-eye text-custom fa-4x"></i>
+            <br>
+            <p class="text-warning mt-3 h4">DESIGN MODERNE</p>
+            <br>
+            <p class="text-black-50 h5">Une ligne moderne qui s’intégrera
+                parfaitement à votre intérieur</p>
+        </div>
+        <div class="col-12 col-lg-4 p-3 p-md-5 text-center">
+            <i class="fas fa-globe-europe text-custom fa-4x"></i>
+            <br>
+            <p class="text-warning mt-3 h4">BON POUR LE CLIMAT</p>
+            <br>
+            <p class="text-black-50 h5">Une combustion qui libère moins de CO2 :
+                réchauffez chez vous, pas le climat !</p>
+        </div>
+        <div class="col-12 text-center">
+            <a href="#" class="btn btn-lg bg-custom text-white">J'en profite</a>
+        </div>
+    </div>
+
+    <div class="row pt-5">
+        <div class="col-12 p-3 text-center">
+            <p class="text-black-50 font-weight-bold">Nos offres gratuite</p>
+            <h5 class="h2 text-uppercase text-warning text-center font-weight-bold">VOUS FAIRE ÉCONOMISER, DEPUIS DES ANNÉES :</h5>
+            <h5 class="text-black-50">En 2016, nous réduisions votre facture d’éclairage grâce à Mes Ampoules Gratuites. <br>
+                Depuis 2017, nous optimisons l’isolation de votre maison grâce à Mes Combles Gratuits, Isoler Mon Plancher et Mon Calorifugeage Gratuit.
+                <br>
+                Nous avons enrichi notre savoir-faire : une expertise des solutions gratuites clés-en-main, pensées pour vous.</h5>
+        </div>
+    </div>
+    <div class="row p-lg-4">
+        <div class="col-12 col-lg-4">
+            <div class="col-12 bg-custom p-2 rounded text-center">
+                <img src="/img/simulation-energier-logo.png" alt="Logo simulation-energie.fr" style="max-width: 300px" width="50%">
+                <div class="col-12 bg-white rounded mt-3 p-3">
+                    <h5 class="text-custom p-0 m-0">
+                        4M de maisons équipées
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+            <div class="col-12 bg-custom p-2 rounded text-center">
+                <img src="/img/simulation-energier-logo.png" alt="Logo simulation-energie.fr" style="max-width: 300px" width="50%">
+                <div class="col-12 bg-white rounded mt-3 p-3">
+                    <h5 class="text-custom p-0 m-0">
+                        4M de maisons équipées
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+            <div class="col-12 bg-custom p-2 rounded text-center">
+                <img src="/img/simulation-energier-logo.png" alt="Logo simulation-energie.fr" style="max-width: 300px" width="50%">
+                <div class="col-12 bg-white rounded mt-3 p-3">
+                    <h5 class="text-custom p-0 m-0">
+                        4M de maisons équipées
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-center p-5">
+            <a href="#eligibilite" class="btn btn-lg bg-custom text-white">J'en profite</a>
+        </div>
+    </div>
+
+
+    <div class="row align-items-center bg-light m-2 m-lg-4 p-5 text-center">
+        <div class="col-12">
+            <i class="fas fa-headset text-custom fa-4x"></i>
+        </div>
+        <div class="col-12 mt-3">
+            <p class="h5 text-uppercase text-warning">
+                UNE QUESTION ? <br>
+                CONTACTEZ-NOUS PAR TÉLÉPHONE OU PAR MAIL</p>
+        </div>
+        <div class="col-12 mt-3">
+            <p class="h5 text-custom">
+                TEL: <a href="tel:0272240350">02 72 24 03 50</a> <br>
+                MAIL: <a href="mailto:contact@simulation-energie.fr">contact@simulation-energie.fr</a></p>
+        </div>
+        <div class="col-12 mt-5">
+            <img src="/img/simulation-energie-logo-black.png" alt="Logo simulation-energie.fr" style="max-width: 200px;opacity: .5" width="50%">
+        </div>
+    </div>
+
 </div>
-<div id="site">
-    <header class="container-fluid p-0 header">
-        <nav class="navbar navbar-expand-lg py-3 ">
-            <div class="container"><a href="#" class="navbar-brand text-uppercase font-weight-bold">
-                    <img src="{% if page.logo is defined and page.logo is not null %}img/{{ page.logo }}{% else %}{{ asset('img/simulation-energier-logo.png') }}{% endif %}"
-                         alt="Logo - Ma pompe à chaleur" width="170px">
-                </a>
-                <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-                        class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars text-white"></i></button>
-
-                <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="#" class="nav-link font-weight-bold "><i
-                                        class="fas fa-flip-horizontal fa-phone small"></i> Appelez-nous <span
-                                        class="sr-only">(current)</span></a></li>
-                        {#                    <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">About</a></li>
-                                            <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Gallery</a></li>
-                                            <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Portfolio</a></li>
-                                            <li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold">Contact</a></li>#}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div class="container h-100 pt-3 mb-5 mb-md-0">
-            <div class="row mb-md-5">
-                <div class="d-none d-md-none d-xl-block col-xl-5">
-                    <div class="row">
-                        <h2 class="h5 text-white">OFFRE EXEPTIONNELLE : Profitez-en maintenant !</h2>
-                        <div class="row align-items-center text-center font-weight-bold text-white pt-3 pb-3"
-                             id="countdown">
-                            <div class="col-2">
-                                <div class="col-12 p-2 rounded border text-white" id="days">&nbsp;</div>
-                            </div>
-                            <div class="col-1">J</div>
-                            <div class="col-2">
-                                <div class="col-12 p-2 rounded border text-white" id="hours">&nbsp;</div>
-                            </div>
-                            <div class="col-1">H</div>
-                            <div class="col-2">
-                                <div class="col-12 p-2 rounded border text-white" id="mins">&nbsp;</div>
-                            </div>
-                            <div class="col-1">M</div>
-                            <div class="col-2">
-                                <div class="col-12 p-2 rounded border text-white" id="secs">&nbsp;</div>
-                            </div>
-                            <div class="col-1">S</div>
-                        </div>
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Bénéficiez jusqu'à 10 700€ d'aides de l'état !
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Profitez de la prime énergie jusqu'a 5500 €
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Profitez de la prime Ma prime Renov' jusqu'a 5200 € !
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Réduisez jusqu'à 80% vos factures de énergetique !
-                    </div>
-                    <div class="row align-items-center mt-3 text-white">
-                        <i class="fas fa-check "></i> &nbsp; Technicien local agrée RGE
-                    </div>
-
-                    <button class="btn border bg-transparent text-white mt-3">J'EN PROFITE TOUT DE SUITE</button>
-                </div>
-                <div class="col-12 col-xl-6 offset-xl-1">
-                    <div class="col-12 bg-white shadow p-5 text-center">
-                        <h1 class="h4"><i class="fas fa-quote-left small text-custom"></i> Testez votre éligibilité en
-                            fournissant vos infos ci-dessous. <i class="fas fa-quote-right small text-custom"></i></h1>
-                        <hr>
-                        <form id="regForm" class="text-left" method="post" name="lead">
-                            {% if page.simulator %}
-                                {{ page.simulator.content|raw }}
-                            {% else %}
-                                <div class="tab">
-                                    <h6 class="font-weight-bold text-black-50">J'habite :</h6>
-                                    <p>
-                                        <select name="lead[custom][logement]" id="type_logement" class="form-control mb-3">
-                                            <option value="Maison">Une maison</option>
-                                            <option value="Appart">Un appartement</option>
-                                        </select>
-                                    </p>
-                                    <h6 class="font-weight-bold text-black-50">J'ai un chauffage :</h6>
-                                    <p>
-                                        <select name="lead[custom][chauffage]" id="type_chauffage" class="form-control mb-3">
-                                            <option value="Gaz">Gaz</option>
-                                            <option value="Electrique">Electrique</option>
-                                            <option value="Fioul">Fioul</option>
-                                            <option value="Bois">Bois</option>
-                                            <option value="Charbon">Charbon</option>
-                                        </select>
-                                    </p>
-                                </div>
-                                <div class="tab coord"><h6 class="font-weight-bold text-black-50">Mes coordonnées :</h6>
-                                    <div class="form-row">
-                                        <div class="col-12 col-md-6">
-                                            <p><input placeholder="Votre nom..."
-                                                      oninput="this.className = 'form-control'"
-                                                      name="lead[nom]" class="form-control" minlength="2"></p>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <p><input placeholder="Votre prénom..."
-                                                      oninput="this.className = 'form-control'"
-                                                      name="lead[prenom]" class="form-control" minlength="2"></p>
-                                        </div>
-                                    </div>
-                                    <p><input placeholder="Votre adresse..." oninput="this.className = 'form-control'"
-                                              name="lead[adresse]" class="form-control" minlength="8"></p>
-                                    <div class="form-row">
-                                        <div class="col-12 col-md-6">
-                                            <p><input placeholder="Votre code postal..."
-                                                      oninput="this.className = 'form-control'" name="lead[codepostal]"
-                                                      class="form-control" minlength="5"></p>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <p><input placeholder="Votre ville..."
-                                                      oninput="this.className = 'form-control'"
-                                                      name="lead[ville]" class="form-control" minlength="2"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab coord"><h6 class="font-weight-bold text-black-50">Je reçois ma réponse
-                                        personnalisée :</h6>
-                                    <p><input placeholder="E-mail..." oninput="this.className = 'form-control'"
-                                              name="lead[email]"
-                                              class="form-control" type="email" minlength="8"></p>
-                                    <p><input placeholder="Phone..." oninput="this.className = 'form-control'"
-                                              name="lead[telephone]"
-                                              class="form-control" type="tel" minlength="10"></p>
-                                </div>
-                            {% endif %}
-                            <input type="hidden" hidden value="{{ page ? page.id : '-1' }}" name="lead[page]">
-                            <div class="form-row mt-3">
-                                <div class="col-6 text-left">
-                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)"
-                                            class="btn text-white bg-custom">Précèdent
-                                    </button>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <button type="button" id="nextBtn" onclick="nextPrev(1)"
-                                            class="btn text-white bg-custom">Suivant
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- Circles which indicates the steps of the form: -->
-                            <div class="row mt-3">
-                                <div class="col-12 text-center">
-                                    <small class="text-black-50">Progression</small>
-                                </div>
-                            </div>
-                            <div class="row step_container shadow">
-                                <span class="col step p-1 finish"></span>
-                                <span class="col step p-1 text-center text-small percent text-white">33%</span>
-                                <span class="col step p-1"></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <main>
-        <!-- Modal -->
-        <div class="modal fade" id="mentionsModal" tabindex="-1" role="dialog"
-             aria-labelledby="mentionsModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mentionsModallLongTitle">Mentions spéciales</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-bod text-center p-5">
-                        En complétant et en validant ce formulaire, vous acceptez d’être rappelé par nos partenaires.
-                        Ces derniers vous présenteront le produit concernant votre demande et répondront à vos
-                        éventuelles questions. Si vous ne souhaitez pas faire l’objet de démarchage téléphonique, vous
-                        pouvez vous inscrire sur la liste d’opposition sur le site :
-                        <a href="www.bloctel.gouv.fr" target="_blank" class="text-custom">www.bloctel.gouv.fr</a>
-                        <br><br>
-                        En validant ce formulaire confidentiel et sans engagement, j’accepte de recevoir gratuitement et
-                        sans engagement plusieurs offres de professionnels à proximité de mon domicile. Conformément à
-                        la loi informatique et libertés du 06 janvier 1978, je dispose d’un droit d’accès et de
-                        rectification aux données exerçable à
-                        <a href="mailto:contact@ma-simulation-energies.fr" class="text-custom">contact@ma-simulation-energies.fr</a>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-custom text-white" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            {% block body %}{% endblock %}
-        </div>
-        <div class="container-fluid bg-light">
-            <div class="container p-5">
-                <div class="row align-items-center p-0 p-md-5">
-                    <div class="col-12 text-center mb-5">
-                        <h1 class="h4 text-center text-custom"><b>UNE QUESTION ?</b></h1>
-                        <span class="text-black-50">Contactez-nous par téléphone ou par mail</span>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="col-12 rounded border bg-white p-5 text-center mt-3">
-                            <i class="fas fa-phone fa-flip-horizontal fa-4x text-custom"></i>
-                            <h6 class="h5 mt-3 text-custom"><a href="tel:0800800800" class="text-custom">0 800 800
-                                    800</a></h6>
-                            <br>
-                            <span class="text-black-50"><b><strong>Appel gratuit 9h - 18h</strong></b></span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="col-12 rounded border bg-white p-5 text-center mt-3">
-                            <i class="fas fa-envelope fa-flip-horizontal fa-4x text-custom"></i>
-                            <h6 class="h5 mt-3 text-custom"><a href="mailto:contact@ma-simulation-energies.fr"
-                                                               class="text-custom">contact@ma-simulation-energies.fr</a>
-                            </h6>
-                            <span class="text-black-50"><b><strong>On vous répond rapidement</strong></b></span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <img src="{{ asset('img/credits-impots.jpg') }}" alt="" width="100%">
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer class="bg-dark text-light pb-3 pl-3 pr-3 text-center fixed-bottom shadow-lg" id="cookiebar">
-        <div class="row bg-light p-5 text-dark align-items-center" id="cookie">
-            <div class="col-10 text-left">
-                <p>En visitant notre site Web et en utilisant nos services, vous comprenez et acceptez la façon dont nous traitons les données personnelles conformément à notre politique de confidentialité. Nous respectons votre vie privée et le droit de contrôler vos données personnelles. Nos principes directeurs sont simples. Nous allons être ouverts avec quelles données nous collectons et pourquoi. Veuillez prendre un moment pour les lire.</p>
-            </div>
-            <div class="col-2 text-right">
-                <button class="btn bg-custom text-white" onclick="acceptCookie()">J'accepte</button>
-            </div>
-        </div>
-        <div class="row pt-3">
-          <div class="col-12 text-center">
-              <a href="{{ path('legal') }}" class="text-white">Mentions légales</a>
-          </div>
-        </div>
-    </footer>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-<script src="{{ asset('js/form.js') }}"></script>
-<script src="{{ asset('js/countdown.js') }}"></script>
-{% if page.tags %}
-    {% for tag in page.tags %}
-        {% if 'bodyend' in tag.position %}
-            {{ tag.content|raw }}
-        {% endif %}
-    {% endfor %}
-{% endif %}
-<script>
-    function  acceptCookie() {
-        window.localStorage.setItem('cookieAccepted','true');
-        $('#cookiebar').removeClass('fixed-bottom');
-        $('#cookie').remove();
-    }
-    if(window.localStorage.getItem('cookieAccepted')){
-        acceptCookie();
-    }
-</script>
-{% block javascripts %}{% endblock %}
-</body>
-</html>

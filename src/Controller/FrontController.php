@@ -57,12 +57,16 @@ class FrontController extends AbstractController
             $lead->setCodePostal($datas['codepostal']);
             $lead->setEmail($datas['email']);
             $lead->setTelephone($datas['telephone']);
+            $lead->setEligible(1);
             if($page = $repository->find($datas['page'])){
                 $lead->setIsFrom($page);
             }
             if (isset($datas['custom']) && $datas['custom'] != '') {
-
                 foreach ($datas['custom'] as $k => $v){
+                    if(substr($v,0,2) == 'n_')
+                    {
+                        $lead->setEligible(0);
+                    }
                     $ctn[] = [$k=>$v];
                 }
                 $lead->setCustomFields($ctn);
