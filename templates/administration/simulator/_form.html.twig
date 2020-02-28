@@ -34,6 +34,33 @@
             opacity: .5;
         }
 
+        label,
+        input {
+            display: block;
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        input[type="radio"] {
+            opacity: 0.01;
+            z-index: 100;
+        }
+
+
+        label {
+            z-index: 90;
+        }
+
+        label:hover {
+            background: #DDD;
+        }
+        .step.finish,.step.active {
+            background: white!important;
+        }
+
     </style>
 {% endblock %}
 {{ form_start(form) }}
@@ -41,6 +68,7 @@
 <div class="row">
     <div class="col-12 text-center mb-3">
         <a href="#" class="btn bg-custom text-white" onclick="addTab()">Ajouter un onglet</a>
+        <a href="#" class="btn bg-custom text-white" data-toggle="modal" data-target="#buttonModalCenter">Ajouter un bouton</a>
         <a href="#" class="btn bg-custom text-white" data-toggle="modal" data-target="#inputModalCenter">Ajouter un champs</a>
         <a href="#" class="btn bg-custom text-white"  data-toggle="modal" data-target="#listModalCenter">Ajouter une liste</a>
         <a href="#" class="btn bg-custom text-white" onclick="addLabel()">Ajouter un label</a>
@@ -53,5 +81,105 @@
 </div>
 {{ form_end(form) }}
 
+<!-- Modal Input -->
+<div class="modal fade" id="inputModalCenter" tabindex="-1" role="dialog" aria-labelledby="inputModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inputModalLongTitle">Paramètre du champ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6 class="font-weight-bold text-black-50">Nom du champ :</h6>
+                <input type="text" name="inputName" id="input_name" class="form-control mb-3">
+                <h6 class="font-weight-bold text-black-50">Type de champ :</h6>
+                <select name="inputType" id="input_type" class="form-control mb-3">
+                    <option value="email">Email</option>
+                    <option value="tel">Tel</option>
+                    <option value="text">Texte</option>
+                    <option value="number">Nombre</option>
+                </select>
+                <h6 class="font-weight-bold text-black-50">Placeholder :</h6>
+                <input type="text" name="inputPlaceholder" id="input_placeholder" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="addInput($('#input_name').val(),$('#input_type').val(),$('#input_placeholder').val())"
+                        data-dismiss="modal">Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Modal List -->
+<div class="modal fade" id="listModalCenter" tabindex="-1" role="dialog" aria-labelledby="listModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="listModalLongTitle">Paramètre de la liste</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6 class="font-weight-bold text-black-50">Nom du champ :</h6>
+                <input type="text" name="selectName" id="select_name" class="form-control mb-3">
+                <h6 class="font-weight-bold text-black-50">Options : (nom:valeur)</h6>
+                <h6 class="text-black-50">Ajouter "n_" à la valeur pour rendre inéligible. <br>
+                    (<b>exemple</b> : statut:<b>n_</b>locataire)</h6>
+
+                <textarea class="form-control" name="selectOptions" id="select_options"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="addList($('#select_name').val(),$('#select_options').val())" data-dismiss="modal">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="buttonModalCenter" tabindex="-1" role="dialog" aria-labelledby="buttonModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="buttonModalLongTitle">Paramètre du champ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6 class="font-weight-bold text-black-50">Nom du champ :</h6>
+                <input type="text" name="inputName" id="input_name" class="form-control mb-3">
+                <h6 class="font-weight-bold text-black-50">Valeur du champ :</h6>
+                <input type="text" name="inputName" id="input_val" class="form-control mb-3">
+                <h6 class="font-weight-bold text-black-50">Label du champ :</h6>
+                <input type="text" name="inputName" id="input_label" class="form-control mb-3">
+                <h6 class="font-weight-bold text-black-50">Eligibilité :</h6>
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" id="input_eligible" name="inputEligible" class="d-inline-block custom-control-input" value="" onclick="toggleVal($(this))">
+                        <label class="switch-custom custom-control-label" for="input_eligible">Ce champs rend inéligible ?</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="actbtn" type="button" class="btn btn-primary"
+                        onclick="addButton($('#input_name').val(),$('#input_eligible').val()+$('#input_val').val(),$('#input_label').val())"
+                        data-dismiss="modal">Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 

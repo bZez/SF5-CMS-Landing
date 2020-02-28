@@ -43,7 +43,9 @@ body{
     background: url("../img/comment-marche-le-chauffage-a-gaz.jpg") no-repeat center center;
     background-size: cover;
 }
-
+.delBtn {
+    z-index: 99;
+}
 @media (max-height: 900px) {
     .header:before{
          height: 120vh;

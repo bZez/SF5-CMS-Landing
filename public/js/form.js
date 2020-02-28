@@ -43,7 +43,7 @@ function nextPrev(n) {
         // ... the form gets submitted:
         $.post( "_/register",$('#regForm').serialize(), function( data ) {
             $('body').removeClass('overflow-hidden');
-            window.scrollTo(0, 0);
+            $('html, body').animate({scrollTop: $('#eligibilite').offset().top -100 }, 'fast');
             $('#regForm').replaceWith("<h1 class='h5'>Merci, vous avez terminé votre demande d'information. <br><br>" +
                 "Vos informations ont bien été envoyées. Un opérateur vous contactera dans les prochaines 48 heures afin de vérifier avec vous certaines informations pour valider votre demande. Merci de ne pas faire de multiples demandes afin de garder votre éligibilité au programme.</h1>");
                 gtag('event', 'conversion', {'send_to': 'AW-710428717/nuq0CL2Vl8YBEK2Q4dIC'});
